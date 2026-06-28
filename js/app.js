@@ -408,6 +408,12 @@ function clearRunState(){
   }
   updateShieldPill();
 }
+function setStatusActionable(on){
+  if(!statusPill) return;
+  statusPill.classList.toggle('actionable',on);
+  statusPill.setAttribute('role',on?'button':'status');
+  statusPill.tabIndex=on?0:-1;
+}
 function showOverlay(title,text,labelKey){
   if (!overlay) return;
   overlay.classList.remove('hidden');
@@ -437,16 +443,17 @@ function tickEndCelebration(){
     state.confetti.forEach(c=>{c.x+=c.vx;c.y+=c.vy;c.vy+=.18});
     state.confetti=state.confetti.filter(c=>c.y<canvas.height+30);
   }
-  if(!state.endAnim) return;
-  state.endAnim.timer--;
-  if(state.endAnim.timer<=0){
-    state.endAnim=null;
-    if(state.pendingOverlay){
-      const p=state.pendingOverlay;
-      state.pendingOverlay=null;
-      showOverlay(t(p.titleKey,p.params),t(p.textKey,p.params),p.labelKey);
-      state.restartUnlockAt=Date.now()+RESTART_DELAY_MS;
-      state.uiOverlay={titleKey:p.titleKey,textKey:p.textKey,labelKey:p.labelKey,params:{...p.params}};
+  if(state.endAnim){
+    state.endAnim.timer--;
+    if(state.endAnim.timer<=0){
+      state.endAnim=null;
+      if(state.pendingOverlay){
+        const p=state.pendingOverlay;
+        state.pendingOverlay=null;
+        showOverlay(t(p.titleKey,p.params),t(p.textKey,p.params),p.labelKey);
+        state.restartUnlockAt=Date.now()+RESTART_DELAY_MS;
+        state.uiOverlay={titleKey:p.titleKey,textKey:p.textKey,labelKey:p.labelKey,params:{...p.params}};
+      }
     }
   }
   if(!state.running && overlay && !overlay.classList.contains('hidden')) updateRestartButton();
@@ -454,6 +461,7 @@ function tickEndCelebration(){
 function resetGame(){
   state.running=false;state.paused=false;state.pendingOverlay=null;state.restartUnlockAt=0;state.uiOverlay=null;
   pauseOverlay?.classList.add('hidden');clearRunState();
+  setStatusActionable(false);
   if(statusPill)statusPill.textContent=t('hud.ready');updateStats();
   if(state.level==='five') showOverlayI18n('overlay.boss.title','overlay.boss.text','btn.play');
   else if(state.level==='four') showOverlayI18n('overlay.ice.title','overlay.ice.text','btn.play');
@@ -462,7 +470,7 @@ function resetGame(){
 }
 function startGame(){
   if(!state.running&&!canRestart()) return;
-  if(!state.running)clearRunState();state.running=true;state.paused=false;state.uiOverlay=null;pauseOverlay?.classList.add('hidden');overlay?.classList.add('hidden');if(statusPill)statusPill.textContent=t('hud.playing');updateStats();showLvl3HintIfNeeded();showLvl4HintIfNeeded();showLvl5HintIfNeeded();updatePauseBtn();updateAbilityPill();}
+  if(!state.running)clearRunState();state.running=true;state.paused=false;state.uiOverlay=null;setStatusActionable(false);pauseOverlay?.classList.add('hidden');overlay?.classList.add('hidden');if(statusPill)statusPill.textContent=t('hud.playing');updateStats();showLvl3HintIfNeeded();showLvl4HintIfNeeded();showLvl5HintIfNeeded();updatePauseBtn();updateAbilityPill();updateTouchPad();}
 function jump(){
   if(!state.running){
     if(!canRestart()) return;
@@ -550,6 +558,7 @@ function endRun(type, opts={}){
   const statusKey=type==='win'?'hud.victory':'hud.tryAgain';
   const labelKey='btn.playAgain';
   statusPill.textContent=t(statusKey);
+  setStatusActionable(type!=='win');
   if(type==='win'){
     playSFX('win');
     state.endAnim={type:'win',timer:90};
@@ -569,6 +578,7 @@ function endRun(type, opts={}){
   }
   updatePauseBtn();
   updateAbilityPill();
+  updateTouchPad();
   if(!isPlatformLevel()) resetRunnerPosition();
 }
 
@@ -1629,7 +1639,7 @@ function updatePauseBtn() {
 function updateTouchPad() {
   if (!touchPad) return;
   const touch = isTouchDevice();
-  const show = touch && (isPlatformLevel() || isRunnerLevel());
+  const show = touch && state.running && (isPlatformLevel() || isRunnerLevel());
   touchPad.hidden = !show;
   touchPad.classList.toggle('runner-mode', show && isRunnerLevel());
   if (keyHint) keyHint.style.display = isPlatformLevel() && !touch ? 'block' : 'none';
@@ -1719,6 +1729,15 @@ function bindEvents() {
   startBtn?.addEventListener('click', startGame);
   restartBtn?.addEventListener('click', resetGame);
   overlayStart?.addEventListener('click', startGame);
+  statusPill?.addEventListener('click', () => {
+    if (!state.running && canRestart()) startGame();
+  });
+  statusPill?.addEventListener('keydown', (e) => {
+    if ((e.code === 'Enter' || e.code === 'Space') && !state.running && canRestart()) {
+      e.preventDefault();
+      startGame();
+    }
+  });
   easyBtn?.addEventListener('click', () => setDifficulty('easy'));
   hardBtn?.addEventListener('click', () => setDifficulty('hard'));
   lvl1Btn?.addEventListener('click', () => setLevel('one'));
