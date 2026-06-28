@@ -1,13 +1,13 @@
-import { diff, lvl2Cfg, lvl3Cfg, lvl4Cfg, lvl5Cfg, heroes, makeLvl3World, STAR_GOAL, ABILITY } from './config.js?v=37';
-import { initLevel4, updateLevel4, renderLevel4 } from './level4.js?v=37';
-import { initLevel5, updateLevel5, renderLevel5, getL5HeroMoveBounds } from './level5.js?v=37';
-import { playSFX, toggleMuted } from './audio.js?v=37';
+import { diff, lvl2Cfg, lvl3Cfg, lvl4Cfg, lvl5Cfg, heroes, makeLvl3World, STAR_GOAL, ABILITY } from './config.js?v=38';
+import { initLevel4, updateLevel4, renderLevel4 } from './level4.js?v=38';
+import { initLevel5, updateLevel5, renderLevel5, getL5HeroMoveBounds } from './level5.js?v=38';
+import { playSFX, toggleMuted } from './audio.js?v=38';
 import {
   spawnShieldBurst, spawnShieldBreakBurst, spawnStarBurst, spawnHitBurst,
   updateParticles, drawParticles, clearParticles,
-} from './particles.js?v=37';
-import { loadScores, saveScores, loadHintFlag, setHintFlag } from './storage.js?v=37';
-import { t, loadLocale, setLocale, applyStaticI18n } from './i18n.js?v=37';
+} from './particles.js?v=38';
+import { loadScores, saveScores, loadHintFlag, setHintFlag } from './storage.js?v=38';
+import { t, loadLocale, setLocale, applyStaticI18n } from './i18n.js?v=38';
 
 
 let canvas, ctx, dom;
@@ -75,6 +75,12 @@ function scrollCamX(){
 }
 function isPlatformLevel(){
   return state.level==='three'||state.level==='four'||state.level==='five';
+}
+function isRunnerLevel(){
+  return state.level==='one'||state.level==='two';
+}
+function isTouchDevice(){
+  return window.matchMedia('(pointer: coarse)').matches||'ontouchstart' in window;
 }
 function l4Deps(){
   return {
@@ -333,7 +339,8 @@ function updateAbilityPill(){
 function updateTouchAbilityBtn() {
   if (!touchAbility) return;
   const h = heroes[state.hero];
-  const show = isPlatformLevel() && (h.ability === 'dash' || h.ability === 'timeBubble');
+  const show = (h.ability === 'dash' || h.ability === 'timeBubble')
+    && (isPlatformLevel() || (isTouchDevice() && isRunnerLevel()));
   touchAbility.hidden = !show;
   if (!show) return;
   const a = state.abilities;
@@ -1621,9 +1628,11 @@ function updatePauseBtn() {
 
 function updateTouchPad() {
   if (!touchPad) return;
-  const show = isPlatformLevel();
+  const touch = isTouchDevice();
+  const show = touch && (isPlatformLevel() || isRunnerLevel());
   touchPad.hidden = !show;
-  if (keyHint) keyHint.style.display = show && !('ontouchstart' in window) ? 'block' : 'none';
+  touchPad.classList.toggle('runner-mode', show && isRunnerLevel());
+  if (keyHint) keyHint.style.display = isPlatformLevel() && !touch ? 'block' : 'none';
   updateTouchAbilityBtn();
 }
 

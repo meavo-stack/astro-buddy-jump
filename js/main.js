@@ -1,5 +1,5 @@
-import { initGame } from './app.js?v=37';
-import { loadLocale } from './i18n.js?v=37';
+import { initGame } from './app.js?v=38';
+import { loadLocale } from './i18n.js?v=38';
 
 loadLocale();
 

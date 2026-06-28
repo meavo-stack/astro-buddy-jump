@@ -1,6 +1,6 @@
-import { lvl5Cfg, BOSS, makeLvl5Arena, createBoss, STAR_GOAL } from './config.js?v=37';
-import { playSFX } from './audio.js?v=37';
-import { spawnStarBurst, spawnHitBurst } from './particles.js?v=37';
+import { lvl5Cfg, BOSS, makeLvl5Arena, createBoss, STAR_GOAL } from './config.js?v=38';
+import { playSFX } from './audio.js?v=38';
+import { spawnStarBurst, spawnHitBurst } from './particles.js?v=38';
 
 const ATTACKS_P1 = ['stomp', 'sneeze'];
 const ATTACKS_P2 = ['stomp', 'sweep', 'sneeze'];

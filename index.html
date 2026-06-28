@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Astro Buddy Jump — Free Browser Game | Astro Juli</title>
   <meta name="description" content="Free browser platformer: 5 levels, 4 heroes, double jump, dash, and boss fight. Play Astro Buddy Jump at astrojuli.com — no install." />
   <link rel="canonical" href="https://astrojuli.com/" />
@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/game.css?v=38">
+  <link rel="stylesheet" href="css/game.css?v=39">
 </head>
 <body>
 <main class="shell">
@@ -65,6 +65,7 @@
   </header>
   <section class="content">
     <aside class="panel">
+      <p class="skip-to-game"><a href="#game-stage" data-i18n="ui.skipToGame"></a></p>
       <div class="card">
         <h2 style="margin:0 0 .8rem;font-size:1.25rem;" data-i18n="heroes.title"></h2>
         <div class="hero-grid" id="heroGrid">
@@ -75,13 +76,16 @@
         </div>
       </div>
       <div class="card"><h2 style="margin:0 0 .8rem;font-size:1.25rem;" data-i18n="stats.title"></h2><div class="stats"><div class="stat"><div class="lab" data-i18n="stats.points"></div><div class="val" id="scoreStat">0</div></div><div class="stat"><div class="lab" data-i18n="stats.stars"></div><div class="val" id="starsStat">0</div></div><div class="stat"><div class="lab" data-i18n="stats.best"></div><div class="val" id="bestStat">0</div></div><div class="stat"><div class="lab" data-i18n="stats.speed"></div><div class="val" id="speedStat">1</div></div></div></div>
-      <div class="card">
-        <h2 style="margin:0 0 .6rem;font-size:1.25rem;" data-i18n="howto.title"></h2>
+      <details class="card card-collapsible">
+        <summary><h2 data-i18n="howto.title"></h2></summary>
         <ul style="padding-left:1.1rem;margin:.6rem 0 0;color:var(--muted)"><li data-i18n="howto.l1"></li><li data-i18n="howto.l2"></li><li data-i18n="howto.l3"></li><li data-i18n="howto.l4"></li><li data-i18n="howto.l5"></li><li data-i18n="howto.l6"></li><li data-i18n="howto.l7"></li></ul>
-      </div>
-      <div class="card" style="margin-bottom:0;"><h2 style="margin:0 0 .6rem;font-size:1.25rem;" data-i18n="difficulties.title"></h2><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.easy"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.hard"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level1"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level2"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level3"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level4"></p><p style="margin:0;color:var(--muted)" data-i18n="difficulties.level5"></p></div>
+      </details>
+      <details class="card card-collapsible" style="margin-bottom:0;">
+        <summary><h2 data-i18n="difficulties.title"></h2></summary>
+        <p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.easy"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.hard"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level1"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level2"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level3"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level4"></p><p style="margin:0;color:var(--muted)" data-i18n="difficulties.level5"></p>
+      </details>
     </aside>
-    <div class="stage" aria-label="Astro Buddy Jump game">
+    <div class="stage" id="game-stage" aria-label="Astro Buddy Jump game">
       <div class="hud"><div class="pill" id="heroPill">🤖 Astro Buddy</div><div class="pill" id="statusPill" data-i18n="hud.ready"></div><div class="pill ability-pill" id="abilityPill" style="display:none"></div><div class="pill shield-pill inactive" id="shieldPill" style="display:none" data-i18n="hud.shield"></div><div class="pill" id="difficultyPill" data-i18n="diff.easy"></div></div>
       <div class="game">
         <canvas id="game" width="700" height="520" role="img" aria-label="Astro Buddy Jump gameplay canvas"></canvas>
@@ -109,7 +113,7 @@
     <p><strong>Astro Buddy Jump</strong> is a free browser platformer at <a href="https://astrojuli.com">astrojuli.com</a>. Choose from four heroes with unique abilities, play five levels—from a classic runner and cosmic storm to lava platforms, an ice planet, and a boss fight against Big Otto. Use keyboard or touch controls; no download required. Available in English, Bulgarian, and French. The game is developed for educational purposes by a 6 year old boy, with little help from his gamer father, and using AI tools.</p>
   </footer>
 </main>
-<script type="module" src="js/main.js?v=37"></script>
+<script type="module" src="js/main.js?v=38"></script>
 <script>
   window.addEventListener('error', function (e) {
     if (e.filename && e.filename.includes('/js/')) {
