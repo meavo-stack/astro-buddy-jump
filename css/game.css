@@ -54,7 +54,7 @@
       .menu-sheet-body .level-pill{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
       .menu-sheet-body .panel{display:block!important;padding:0;border:0;background:transparent}
     }
-    .mobile-post-game{display:none}
+    @media (min-width:981px){.mobile-post-game{display:none}}
     .level-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.76);border:1px solid var(--border);border-radius:9999px;padding:4px 6px}
 .lang-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.76);border:1px solid var(--border);border-radius:9999px;padding:4px 5px}
 .lang-pill .btn{padding:8px 10px;font-size:.82rem;min-height:36px;min-width:38px}
