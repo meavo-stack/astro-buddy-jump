@@ -1,4 +1,4 @@
-import { initGame } from './app.js?v=38';
+import { initGame } from './app.js?v=39';
 import { loadLocale } from './i18n.js?v=38';
 
 loadLocale();

@@ -449,7 +449,7 @@ function tickEndCelebration(){
       state.uiOverlay={titleKey:p.titleKey,textKey:p.textKey,labelKey:p.labelKey,params:{...p.params}};
     }
   }
-  if(!canRestart()&&!state.running) updateRestartButton();
+  if(!state.running && overlay && !overlay.classList.contains('hidden')) updateRestartButton();
 }
 function resetGame(){
   state.running=false;state.paused=false;state.pendingOverlay=null;state.restartUnlockAt=0;state.uiOverlay=null;
