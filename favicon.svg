@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Astro Buddy Jump">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#b8efff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="#00a8cc" stroke-width="2" opacity="0.35"/>
+  <circle cx="24" cy="26" r="4" fill="#17324a"/>
+  <circle cx="40" cy="26" r="4" fill="#17324a"/>
+  <path d="M20 38 Q32 48 44 38" fill="none" stroke="#00a8cc" stroke-width="3" stroke-linecap="round"/>
+  <path d="M18 14 L22 8 L28 12" fill="#fff176" stroke="#e89a00" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

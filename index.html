@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astro Buddy Jump</title>
+  <title>Astro Buddy Jump — Free Browser Game | Astro Juli</title>
+  <meta name="description" content="Free browser platformer: 5 levels, 4 heroes, double jump, dash, and boss fight. Play Astro Buddy Jump at astrojuli.com — no install." />
+  <link rel="canonical" href="https://astrojuli.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#00a8cc" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://astrojuli.com/" />
+  <meta property="og:title" content="Astro Buddy Jump — Free Browser Game" />
+  <meta property="og:description" content="Jump, dash, and collect stars across 5 levels—runner, lava platforms, ice planet, and boss fight. Play free in your browser at astrojuli.com." />
+  <meta property="og:image" content="https://astrojuli.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Astro Juli" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Astro Buddy Jump — Free Browser Game" />
+  <meta name="twitter:description" content="Jump, dash, and collect stars across 5 levels. Four heroes, five worlds, no download—play at astrojuli.com." />
+  <meta name="twitter:image" content="https://astrojuli.com/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Astro Buddy Jump",
+    "url": "https://astrojuli.com",
+    "description": "Free browser platformer with five levels, four heroes, double jump, dash, time bubble, and a boss fight. Play instantly at astrojuli.com.",
+    "applicationCategory": "Game",
+    "operatingSystem": "Web browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "inLanguage": ["en", "bg", "fr"],
+    "publisher": {
+      "@type": "Organization",
+      "name": "Astro Juli",
+      "url": "https://astrojuli.com"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/game.css?v=37">
+  <link rel="stylesheet" href="css/game.css?v=38">
 </head>
 <body>
 <main class="shell">
@@ -42,10 +81,10 @@
       </div>
       <div class="card" style="margin-bottom:0;"><h2 style="margin:0 0 .6rem;font-size:1.25rem;" data-i18n="difficulties.title"></h2><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.easy"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.hard"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level1"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level2"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level3"></p><p style="margin:0 0 .5rem;color:var(--muted)" data-i18n="difficulties.level4"></p><p style="margin:0;color:var(--muted)" data-i18n="difficulties.level5"></p></div>
     </aside>
-    <div class="stage">
+    <div class="stage" aria-label="Astro Buddy Jump game">
       <div class="hud"><div class="pill" id="heroPill">🤖 Astro Buddy</div><div class="pill" id="statusPill" data-i18n="hud.ready"></div><div class="pill ability-pill" id="abilityPill" style="display:none"></div><div class="pill shield-pill inactive" id="shieldPill" style="display:none" data-i18n="hud.shield"></div><div class="pill" id="difficultyPill" data-i18n="diff.easy"></div></div>
       <div class="game">
-        <canvas id="game" width="700" height="520"></canvas>
+        <canvas id="game" width="700" height="520" role="img" aria-label="Astro Buddy Jump gameplay canvas"></canvas>
         <div class="duck-hint" id="duckHint" data-i18n="hint.duck"></div>
         <div class="lvl3-hint" id="lvl3Hint" data-i18n="hint.lvl3"></div>
         <div class="lvl4-hint" id="lvl4Hint" data-i18n="hint.lvl4"></div>
@@ -66,6 +105,9 @@
       </div>
     </div>
   </section>
+  <footer class="site-footer">
+    <p><strong>Astro Buddy Jump</strong> is a free browser platformer at <a href="https://astrojuli.com">astrojuli.com</a>. Choose from four heroes with unique abilities, play five levels—from a classic runner and cosmic storm to lava platforms, an ice planet, and a boss fight against Big Otto. Use keyboard or touch controls; no download required. Available in English, Bulgarian, and French.</p>
+  </footer>
 </main>
 <script type="module" src="js/main.js?v=37"></script>
 <script>
